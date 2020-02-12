@@ -177,28 +177,32 @@
 
   //METEODO AJAX PARA PEGAR O BOTÃO DE DELETAR
   [...document.querySelectorAll('.btn-delete')].forEach(btn => {
-
     btn.addEventListener('click', e => {
 
       let tr = e.path.find(el => {
 
-        return (el.tagName.toUpperCase() == 'TR');
+        return (el.tagName.toUpperCase() === 'TR');
       });
 
       let data = JSON.parse(tr.dataset.row);
 
-      fetch(`/admin/menus/${data.id}`, {
+      if (confirm(`Deseja Realmente Deletar o Menu ${data.title}?`)) {
 
-        method: 'DELETE'
-      })
-
-        .then(response => response.json())
-        .then(json => {
-          window.location.reload()
+        //SOLICITAÇÃO PARA DELETE UM USARIO DO BANCO
+        fetch(`/admin/menus/${data.id}`, {
+          method: 'DELETE'
         })
+          .then(response => response.json())
+          .then(json => {
+
+            window.location.reload();
+          });
+      }
+
 
     });
   });
+
 
   [...document.querySelectorAll('.btn-update')].forEach(btn => {
 
@@ -206,7 +210,7 @@
 
       let tr = e.path.find(el => {
 
-        return (el.tagName.toUpperCase() == 'TR');
+        return (el.tagName.toUpperCase() === 'TR');
       });
 
       let data = JSON.parse(tr.dataset.row)

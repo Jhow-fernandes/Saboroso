@@ -117,8 +117,7 @@ router.post('/menus', function (req, res, next) {
 
 
 //ROTA PARA DELETAR USUARIO
-router.delete("/menus/:id", function (req, res, next) {
-
+router.delete('/menus/:id', function (req, res, next) {
     menus.delete(req.params.id).then(results => {
 
         res.send(results);
@@ -126,8 +125,8 @@ router.delete("/menus/:id", function (req, res, next) {
     }).catch(err => {
 
         res.send(err);
-    });
-});
+    })
+})
 
 
 

@@ -72,17 +72,16 @@ module.exports = {
 
             conn.query(`
 
-                DELETE FROM tb_menus WHERE id = ?
+            DELETE FROM tb_menus WHERE id = ?
             `, [
                 id
-            ], (err, results => {
-
+            ], (err, results) => {
                 if (err) {
                     reject(err);
                 } else {
                     resolve(results);
                 }
-            }));
-        })
+            });
+        });
     }
 };
