@@ -17,15 +17,15 @@ var app = express();
 
 app.use(function (req, res, next) {
 
-  if (req.method === 'POST') {
+  let contentType = req.headers["content-type"];
 
+  if (req.method === 'POST' && contentType.indexOf('multipart/form-data;') > -1) {
     var form = formidable.IncomingForm({
-
       uploadDir: path.join(__dirname, "/public/images"),
       keepExtensions: true
     });
 
-    form.parse(req, function (error, fields, files) {
+    form.parse(req, function (err, fields, files) {
 
       req.fields = fields;
       req.files = files;
@@ -36,6 +36,7 @@ app.use(function (req, res, next) {
   } else {
     next();
   }
+
 });
 
 // view engine setup

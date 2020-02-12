@@ -7,7 +7,7 @@ let router = express.Router();
 //VALIDAR O USUARIO
 router.use(function (req, res, next) {
 
-    if (['/login'].indexOf(req.url) == -1 && !req.session.user) {
+    if (['/login'].indexOf(req.url) === -1 && !req.session.user) {
         res.redirect('/admin/login');
     } else {
 
@@ -38,7 +38,7 @@ router.get("/", function (req, res, next) {
 
     admin.dashboard().then(data => {
 
-        res.render("/admin/index", admin.getParams(req, {
+        res.render("admin/index", admin.getParams(req, {
             data
         }));
 
@@ -113,7 +113,21 @@ router.post('/menus', function (req, res, next) {
     }).catch(err => {
         res.send(err);
     });
-})
+});
+
+
+//ROTA PARA DELETAR USUARIO
+router.delete("/menus/:id", function (req, res, next) {
+
+    menus.delete(req.params.id).then(results => {
+
+        res.send(results);
+
+    }).catch(err => {
+
+        res.send(err);
+    });
+});
 
 
 
